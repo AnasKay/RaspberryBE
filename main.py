@@ -6,6 +6,8 @@ import falcon
 import requests
 import serial
 
+IP_ADDR_FE="xxx.xxx.xxx.xxx" // enter here the IP addr where your npm server is running on
+
 ser = serial.Serial(
     port='/dev/ttyS0',
     baudrate=115200,
@@ -109,20 +111,21 @@ def longTask():
         speed = randomSensorData(0, 10)
         temp = randomSensorData(0, 40)
         battery = randomSensorData(0, 100)
-        requests.post("http://192.168.0.234:3002/receiveGyro", json=[{"x": 0.1, "y": 0.2, "z": 0.3}])
+        requests.post("http://"+IP_ADDR_FE+":3002/receiveGyro", json=[{"x": 0.1, "y": 0.2, "z": 0.3}])
         time.sleep(0.5)
-        requests.post("http://192.168.0.234:3002/receiveGyro", json=[{"x": 0.15, "y": 0.15, "z": 0.25}])
+        requests.post("http://"+IP_ADDR_FE+":3002/receiveGyro", json=[{"x": 0.15, "y": 0.15, "z": 0.25}])
         time.sleep(0.5)
-        requests.post("http://192.168.0.234:3002/receiveGyro", json=[{"x": -0.13, "y": -0.13, "z": 0.2}])
+        requests.post("http://"+IP_ADDR_FE+":3002/receiveGyro", json=[{"x": -0.13, "y": -0.13, "z": 0.2}])
         time.sleep(0.5)
-        requests.post("http://192.168.0.234:3002/receiveGyro", json=[{"x": -0.11, "y": -0.12, "z": 0.2}])
+        requests.post("http://"+IP_ADDR_FE+":3002/receiveGyro", json=[{"x": -0.11, "y": -0.12, "z": 0.2}])
         time.sleep(0.5)
-        requests.post("http://192.168.0.234:3002/receiveGyro", json=[{"x": -0.10, "y": -0.11, "z": 0.2}])
+        requests.post("http://"+IP_ADDR_FE+":3002/receiveGyro", json=[{"x": -0.10, "y": -0.11, "z": 0.2}])
         time.sleep(0.5)
-        requests.post("http://192.168.0.234:3002/receiveGyro", json=[{"x": -0.9, "y": -0.1, "z": 0.2}])
+        requests.post("http://"+IP_ADDR_FE+":3002/receiveGyro", json=[{"x": -0.9, "y": -0.1, "z": 0.2}])
         time.sleep(0.5)
-        requests.post("http://192.168.0.234:3002/receiveSensorData", json={"tmp": temp, "speed": speed, "battery": battery})
+        requests.post("http://"+IP_ADDR_FE+":3002/receiveSensorData", json={"tmp": temp, "speed": speed, "battery": battery})
         time.sleep(1)
+
 
 app = falcon.App(middleware=falcon.CORSMiddleware(allow_origins='*', allow_credentials='*'))
 help_page = helpPage()
